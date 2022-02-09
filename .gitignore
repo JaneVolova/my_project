@@ -7,6 +7,7 @@
 *.nar
 hs_err_pid*
 
+.idea
 # Default ignored files
 /shelf/
 /workspace.xml
@@ -15,6 +16,6 @@ hs_err_pid*
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-*.xml
+/target
 *.iml
 *.lst
