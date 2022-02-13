@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-@WebServlet("/delete")
+@WebServlet
 public class DeleteUserServlet extends HttpServlet {
 
     @Override

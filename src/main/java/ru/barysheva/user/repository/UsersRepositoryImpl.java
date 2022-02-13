@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class UsersRepositoryImpl implements UsersRepository {
@@ -35,6 +36,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     private static final Function<ResultSet, User> userMapper = resultSet -> {
         try {
+//            if (!resultSet.wasNull())
             return User.builder()
                     .id(resultSet.getLong("id"))
                     .firstName(resultSet.getString("first_name"))
@@ -134,13 +136,19 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public User findById(Long userId) {
+    public Optional<User> findById(Long userId) {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)) {
+            statement.setLong(1, userId);
+
             try (ResultSet resultSet = statement.executeQuery()) {
-                return userMapper.apply(resultSet);
+                if (resultSet.next()) {
+                    return Optional.of(userMapper.apply(resultSet));
+                }
+                return Optional.empty();
             }
+
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }

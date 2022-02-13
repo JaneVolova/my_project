@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-@WebServlet("/update")
+@WebServlet
 public class UpdateUserServlet extends HttpServlet {
 
     @Override
