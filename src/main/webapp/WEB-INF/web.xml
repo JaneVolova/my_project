@@ -12,24 +12,4 @@
         <servlet-name>createUser</servlet-name>
         <url-pattern>/create</url-pattern>
     </servlet-mapping>
-    
-   <servlet>
-       <servlet-name>deleteUser</servlet-name>
-       <servlet-class>ru.barysheva.user.servlet.DeleteUserServlet</servlet-class>
-   </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>deleteUser</servlet-name>
-        <url-pattern>/delete</url-pattern>
-    </servlet-mapping>
-    
-    <servlet>
-        <servlet-name>updateServlet</servlet-name>
-        <servlet-class>ru.barysheva.user.servlet.UpdateUserServlet</servlet-class>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>updateServlet</servlet-name>
-        <url-pattern>/update</url-pattern>
-    </servlet-mapping>
 </web-app>

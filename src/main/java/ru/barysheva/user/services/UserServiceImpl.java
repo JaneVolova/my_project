@@ -33,10 +33,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteById(Long userId) {
+        usersRepository.deleteById(userId);
+    }
+
+    @Override
     public List<UserForm> getAll() {
         return from(usersRepository.findAll());
     }
 
-
+    @Override
+    public void updateUser(UserForm form) {
+        usersRepository.updateUser(User.from(form));
+    }
 }
 

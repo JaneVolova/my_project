@@ -72,12 +72,12 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void deleteById(User user) { // проверить
-        if (!userService.isDeleteUser(user.getId())) {
+    public void deleteById(Long userId) { // проверить
+        if (!userService.isDeleteUser(userId)) {
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
 
-                statement.setLong(1, user.getId());
+                statement.setLong(1, userId);
 
                 int affectedRows = statement.executeUpdate();
 
