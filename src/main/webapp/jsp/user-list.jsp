@@ -14,10 +14,6 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark"
          style="background-color: tomato">
-<%--        <div>--%>
-<%--            <a href="https://www.javaguides.net" class="navbar-brand"> User--%>
-<%--                Management App </a>--%>
-<%--        </div>--%>
 
         <ul class="navbar-nav">
             <li><a href="<%=request.getContextPath()%>/list"
@@ -28,8 +24,6 @@
 <br>
 
 <div class="row">
-    <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
-
     <div class="container">
         <h3 class="text-center">List of Users</h3>
         <hr>
@@ -49,7 +43,6 @@
             </tr>
             </thead>
             <tbody>
-            <!--   for (Todo todo: todos) {  -->
             <c:forEach var="user" items="${listUser}">
 
                 <tr>
@@ -62,7 +55,6 @@
                                 href="delete?id=<c:out value='${user.id}' />">Delete</a></td>
                 </tr>
             </c:forEach>
-            <!-- } -->
             </tbody>
 
         </table>

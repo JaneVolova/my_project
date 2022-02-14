@@ -50,7 +50,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     };
 
     @Override
-    public void updateUser(User user) { //проверить
+    public void updateUser(User user) {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER)) {

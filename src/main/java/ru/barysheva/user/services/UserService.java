@@ -13,9 +13,9 @@ public interface UserService {
 
     void deleteById(Long userId);
 
+    Boolean isDeleteUser(Long userId);
+
     User findById(Long userId);
 
     List<User> getAll();
-
-    Boolean isDeleteUser(Long userId);
 }
