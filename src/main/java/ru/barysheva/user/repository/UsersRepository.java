@@ -13,7 +13,7 @@ public interface UsersRepository {
 
     void deleteById(Long userId);
 
-    Optional<User> findById(Long userId);
+    User findById(Long userId);
 
     List<User> findAll();
 }

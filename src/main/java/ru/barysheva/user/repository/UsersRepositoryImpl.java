@@ -2,12 +2,12 @@ package ru.barysheva.user.repository;
 
 import ru.barysheva.user.model.User;
 import ru.barysheva.user.services.UserService;
+import ru.barysheva.user.services.UserServiceImpl;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 public class UsersRepositoryImpl implements UsersRepository {
@@ -32,11 +32,11 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     public UsersRepositoryImpl(DataSource dataSource) {
         this.dataSource = dataSource;
+        this.userService = new UserServiceImpl(this);
     }
 
     private static final Function<ResultSet, User> userMapper = resultSet -> {
         try {
-//            if (!resultSet.wasNull())
             return User.builder()
                     .id(resultSet.getLong("id"))
                     .firstName(resultSet.getString("first_name"))
@@ -72,7 +72,8 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public void deleteById(Long userId) { // проверить
+    public void deleteById(Long userId) {
+        UserService userService = new UserServiceImpl(this);
         if (!userService.isDeleteUser(userId)) {
             try (Connection connection = dataSource.getConnection();
                  PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER)) {
@@ -136,7 +137,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     @Override
-    public Optional<User> findById(Long userId) {
+    public User findById(Long userId) {
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_FIND_BY_ID)) {
@@ -144,11 +145,11 @@ public class UsersRepositoryImpl implements UsersRepository {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return Optional.of(userMapper.apply(resultSet));
+                    return userMapper.apply(resultSet);
+                } else {
+                    throw new IllegalArgumentException("user not found");
                 }
-                return Optional.empty();
             }
-
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }

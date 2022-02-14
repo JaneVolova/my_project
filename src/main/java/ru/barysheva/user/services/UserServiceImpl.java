@@ -6,8 +6,6 @@ import ru.barysheva.user.repository.UsersRepository;
 
 import java.util.List;
 
-import static ru.barysheva.user.dto.UserForm.from;
-
 public class UserServiceImpl implements UserService {
 
     private final UsersRepository usersRepository;
@@ -29,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public Boolean isDeleteUser(Long userId) {
-        return usersRepository.findById(userId).isPresent();
+        return usersRepository.findById(userId) == null;
     }
 
     @Override
@@ -38,13 +36,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserForm> getAll() {
-        return from(usersRepository.findAll());
+    public User findById(Long userId) {
+        if (usersRepository.findById(userId)!=null) {
+            return usersRepository.findById(userId);
+        } else {
+            throw new IllegalArgumentException("user not found");
+        }
     }
 
     @Override
-    public void updateUser(UserForm form) {
-        usersRepository.updateUser(User.from(form));
+    public List<User> getAll() {
+        return usersRepository.findAll();
+    }
+
+    @Override
+    public void updateUser(User user) {
+        usersRepository.updateUser(user);
     }
 }
+
 
